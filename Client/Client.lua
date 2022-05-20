@@ -17,7 +17,7 @@ Citizen.CreateThread(function()
                             ShowFloatingHelpNotification('Press ~r~E~w~ to buy weapons.', vector3(v.coords[i].x, v.coords[i].y, v.coords[i].z + 1.2))
                             if dist < 2 then
                                 if IsControlJustPressed(0, 38) then
-                                    OpenShop(v.Weapons, v.categories, v.license)
+                                    OpenShop(k, v.Weapons, v.categories, v.license)
                                 end
                             end
                         end
@@ -40,7 +40,8 @@ local open = false
 local armasP = {}
 local cats = {}	
 
-function OpenShop(armas, categorias, license)
+function OpenShop(sid,armas, categorias, license)
+    local shopid = sid
     if license ~= nil then 
         ESX.TriggerServerCallback('esx_license:checkLicense', function(hasWeaponLicense)
             if hasWeaponLicense then
@@ -52,6 +53,7 @@ function OpenShop(armas, categorias, license)
                             action = 'openShop',
                             label = v.label,
                             name = v.name,
+			    shop = shopid
                         })
                     end
                     open = true
@@ -71,6 +73,7 @@ function OpenShop(armas, categorias, license)
                     action = 'openShop',
                     label = v.label,
                     name = v.name,
+		    shop = shopid
                 })
             end
             open = true
@@ -122,7 +125,7 @@ RegisterNUICallback('BuyWeapon', function(data, cb)
         else
             ShowNoti('No Money', 'You don\'t have enough money.', 'error')
         end
-    end, data.price, data.tipo, data.arma)
+    end, data.shop, data.tipo, data.arma)
 end)
 
 CreateThread(function()

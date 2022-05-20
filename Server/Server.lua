@@ -2,9 +2,19 @@
 
 local ESX = exports['es_extended']:getSharedObject()
 
-ESX.RegisterServerCallback('Roda_WeaponShop:BuyWeapon', function(source, cb, precio, tipo, arma)
+ESX.RegisterServerCallback('Roda_WeaponShop:BuyWeapon', function(source, cb, shopid, tipo, arma)
     local xPlayer = ESX.GetPlayerFromId(source)
-    local precio = tonumber(precio)
+    local sid = shopid
+    local precio = 0
+    for k,v in ipairs(Config.Zones) do
+            if k == sid then
+                for i,j in ipairs(v.Weapons) do
+                    if j.name == arma then
+                        precio = j.price
+                    end
+                end
+            end
+    end
     if tipo == 'money' then 
         if xPlayer.getMoney() >= precio then
             if xPlayer.hasWeapon(arma) then 
