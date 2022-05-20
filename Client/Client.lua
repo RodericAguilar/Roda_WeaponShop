@@ -122,7 +122,7 @@ RegisterNUICallback('BuyWeapon', function(data, cb)
         else
             ShowNoti('No Money', 'You don\'t have enough money.', 'error')
         end
-    end, data.price, data.tipo, data.arma)
+    end, data.tipo, data.arma)
 end)
 
 CreateThread(function()
