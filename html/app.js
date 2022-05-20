@@ -70,7 +70,6 @@ $(function(){
     $('.fa-dollar-sign').click(function(){
         $.post('https://Roda_WeaponShop/BuyWeapon', JSON.stringify({
             arma : weaponname,
-            price : weaponprice,
             tipo : 'money'
         })); 
     })  
@@ -78,7 +77,6 @@ $(function(){
     $('.fa-credit-card').click(function(){
         $.post('https://Roda_WeaponShop/BuyWeapon', JSON.stringify({
             arma : weaponname,
-            price : weaponprice,
             tipo : 'bank'
         })); 
     })
