@@ -4,11 +4,13 @@ window.addEventListener('load', function() {
 
 var weaponname = null 
 var weaponprice = null
+var shopid = null
 window.addEventListener('message', function(event) {
     var v = event.data
 
     switch(v.action) {
         case 'openShop':
+                shopid = v.shop
                 $('.contenedor').show(500)
                 $('.Appendxd').append(`
                     <div class="Texto" id="${v.name}">
@@ -71,6 +73,9 @@ $(function(){
         $.post('https://Roda_WeaponShop/BuyWeapon', JSON.stringify({
             arma : weaponname,
             tipo : 'money'
+            price : weaponprice,
+            tipo : 'money',
+            shop : shopid
         })); 
     })  
 
@@ -78,6 +83,9 @@ $(function(){
         $.post('https://Roda_WeaponShop/BuyWeapon', JSON.stringify({
             arma : weaponname,
             tipo : 'bank'
+            price : weaponprice,
+            tipo : 'bank',
+            shop : shopid
         })); 
     })
 })
