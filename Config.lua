@@ -1,5 +1,6 @@
 Config = {}
 
+Config.WeaponAsItem = false
 
 Config.Zones = {
     {
