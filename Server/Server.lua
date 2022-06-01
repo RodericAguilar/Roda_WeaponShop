@@ -17,24 +17,44 @@ ESX.RegisterServerCallback('Roda_WeaponShop:BuyWeapon', function(source, cb, sho
     end
     if tipo == 'money' then 
         if xPlayer.getMoney() >= precio then
-            if xPlayer.hasWeapon(arma) then 
-                cb('ya')
+            if Config.WeaponAsItem then 
+                if xPlayer.getInventoryItem(arma) and xPlayer.getInventoryItem(arma).count > 0 then 
+                   cb('ya')
+                else
+                    xPlayer.removeMoney(precio)
+                    xPlayer.addInventoryItem(arma, 1)
+                    cb('good')
+                end
             else
-                xPlayer.removeMoney(precio)
-                xPlayer.addWeapon(arma, 100)
-                cb('good')
+                if xPlayer.hasWeapon(arma) then 
+                   cb('ya')
+                else
+                    xPlayer.removeMoney(precio)
+                    xPlayer.addWeapon(arma, 100)
+                    cb('good')
+                end
             end
         else
             cb(false)
         end
     elseif tipo == 'bank' then 
         if xPlayer.getAccount('bank').money >= precio then
-            if xPlayer.hasWeapon(arma) then 
-                cb('ya')
+             if Config.WeaponAsItem then 
+                if xPlayer.getInventoryItem(arma) and xPlayer.getInventoryItem(arma).count > 0 then 
+                   cb('ya')
+                else
+                    xPlayer.removeAccountMoney('bank', precio)
+                    xPlayer.addInventoryItem(arma, 1)
+                    cb('good')
+                end
             else
-                xPlayer.removeAccountMoney('bank', precio)
-                xPlayer.addWeapon(arma, 10)
-                cb('good')
+                if xPlayer.hasWeapon(arma) then 
+                   cb('ya')
+                else
+                    xPlayer.removeAccountMoney('bank', precio)
+                    xPlayer.addWeapon(arma, 100)
+                    cb('good')
+                end
             end
         else
             cb(false)
