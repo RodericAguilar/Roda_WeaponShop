@@ -68,23 +68,23 @@ window.addEventListener('message', function(event) {
     }
 })
 
-$(function(){
-    $('.fa-dollar-sign').click(function(){
+
+function buyWithMoney() {
         $.post('https://Roda_WeaponShop/BuyWeapon', JSON.stringify({
             arma : weaponname,
             tipo : 'money',
             shop : shopid
         })); 
-    })  
+}
 
-    $('.fa-credit-card').click(function(){
+function buyWithCard() {
         $.post('https://Roda_WeaponShop/BuyWeapon', JSON.stringify({
             arma : weaponname,
             tipo : 'bank',
             shop : shopid
         })); 
-    })
-})
+}
+
 
 $(document).keyup((e) => {
     
